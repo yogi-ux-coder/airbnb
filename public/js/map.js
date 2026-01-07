@@ -7,10 +7,9 @@ const map = new maptilersdk.Map({
   zoom: 9
 });
 
-const popup = new maptilersdk.Popup({ offset: 25 })
-  .setHTML(`
-     <p>Exact location will be provided after booking</p>
-  `);
+const popup = new maptilersdk.Popup({ offset: 25 }).setHTML(
+  `<p>Exact location will be provided after booking</p>`
+);
 
 new maptilersdk.Marker({ color: "#FF385C" })
   .setLngLat(coordinates)

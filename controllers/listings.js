@@ -29,7 +29,7 @@ module.exports.createListing = async (req, res) => {
         return res.redirect("/listings/new");
     }
 
-    if (!geoResponse.data.features.length) {
+    if (!geoResponse?.data?.features || geoResponse.data.features.length === 0) {
         req.flash("error", "Invalid location");
         return res.redirect("/listings/new");
     }
@@ -64,10 +64,29 @@ module.exports.showListing = async (req, res) => {
         return res.redirect("/listings");
     }
 
-    return res.render("listings/show.ejs", { listing });
+    return res.render("listings/show.ejs", {
+        listing,
+        mapToken: process.env.MAP_TOKEN,
+    });
 };
 
 module.exports.renderEditForm = async (req, res) => {
+    const { id } = req.params;
+    const listing = await Listing.findById(id);
+
+    if (!listing) {
+        req.flash("error", "Listing not found!");
+        return res.redirect("/listings");
+    }
+
+    const originalImageUrl = listing.image?.url
+        ? listing.image.url.replace("/upload", "/upload/w_250")
+        : null;
+
+    return res.render("listings/edit.ejs", { listing, originalImageUrl });
+};
+
+module.exports.updateListing = async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findByIdAndUpdate(
         id,
@@ -80,24 +99,10 @@ module.exports.renderEditForm = async (req, res) => {
         return res.redirect("/listings");
     }
 
-    const originalImageUrl = listing.image?.url
-        ? listing.image.url.replace("/upload", "/upload/w_250")
-        : null;
-
-    return res.render("listings/show.ejs", {
-        listing,
-        mapToken: process.env.MAP_TOKEN,
-    });
-};
-
-module.exports.updateListing = async (req, res) => {
-    const { id } = req.params;
-    const listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-
     if (req.file) {
         listing.image = {
             url: req.file.path,
-            filename: req.file.filename
+            filename: req.file.filename,
         };
         await listing.save();
     }
