@@ -1,0 +1,196 @@
+<% layout("/layouts/boilerplate") %>
+    <style>
+        /* Filters container */
+        #filters {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem 1.5rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: #ccc transparent;
+        }
+
+        /* Hide scrollbar for WebKit browsers */
+        #filters::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        #filters::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
+        }
+
+        #filters::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* Individual filter item */
+        .filter {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0.7;
+            flex: 0 0 auto;
+            /* prevents items from shrinking */
+        }
+
+        /* Icon size */
+        .filter i,
+        .filter span.material-symbols-outlined {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Text under icon */
+        .filter p {
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        /* Hover effect */
+        .filter:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+
+        /* Tax toggle container */
+        .tax-toggle {
+            flex: 0 0 auto;
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 999px;
+            padding: 0.4rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: #fff;
+            white-space: nowrap;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            #filters {
+                gap: 1.2rem;
+                padding: 0.8rem 1rem;
+            }
+
+            .filter i,
+            .filter span.material-symbols-outlined {
+                font-size: 1.2rem;
+            }
+
+            .filter p {
+                font-size: 0.7rem;
+            }
+
+            .tax-toggle {
+                display: none;
+                /* hide toggle on very small screens */
+            }
+        }
+    </style>
+
+    <body>
+        <div id="filters">
+            <div class="filter">
+                <div><i class="material-icons">local_fire_department</i></div>
+                <p>Trending</p>
+            </div>
+            <div class="filter">
+                <div><i class="material-icons">king_bed</i></div>
+                <p>Rooms</p>
+            </div>
+            <div class="filter">
+                <div><i class="material-icons">location_city</i></div>
+                <p>Iconic cities</p>
+            </div>
+            <div class="filter">
+                <div><i class="material-icons">landscape</i></div>
+                <p>Mountains</p>
+            </div>
+            <div class="filter">
+                <div><i class="material-icons">castle</i></div>
+                <p>Castles</p>
+            </div>
+            <div class="filter">
+                <div><i class="material-icons">pool</i></div>
+                <p>Amazing Pools</p>
+            </div>
+            <div class="filter">
+                <span class="material-symbols-outlined" class="filter">camping</span>
+                <p>Camping</p>
+            </div>
+            <div class="filter">
+                <div><i class="material-icons">agriculture</i></div>
+                <p>Farms</p>
+            </div>
+            <div class="filter">
+                <div><i class="material-icons">ac_unit</i></div>
+                <p>Arctic</p>
+            </div>
+
+            <div class="filter">
+                <div><i class="fa-solid fa-landmark-dome"></i></div>
+                <p>Domes</p>
+            </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-ship"></i></div>
+                <p>Boats</p>
+            </div>
+            <div class="tax-toggle">
+                <div class="form-check-reverse form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+                    <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+            <% for(let listing of allListings) { %>
+                <a href="/listings/<%= listing._id %> " class="listing-link">
+                    <div class="card col listing-card">
+                        <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image"
+                            style="height: 20rem">
+                        <div class="card-img-overlay"></div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <b>
+                                    <%= listing.title %>
+                                </b> <br>
+                                &#8377;<%= listing.price.toLocaleString("en-IN") %> / night
+                                    <i class="tax-info"> &nbsp; +18% GST</i>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <% } %>
+        </div>
+    </body>
+
+    <script>
+        const taxSwitch = document.getElementById("switchCheckDefault");
+        const taxInfoElements = document.getElementsByClassName("tax-info");
+
+        // Hide tax info by default when page loads
+        window.addEventListener("DOMContentLoaded", () => {
+            for (let info of taxInfoElements) {
+                info.style.display = "none";
+            }
+            taxSwitch.checked = false; // ensure switch is off initially
+        });
+
+        // Toggle tax info visibility when the switch changes
+        taxSwitch.addEventListener("change", () => {
+            for (let info of taxInfoElements) {
+                info.style.display = taxSwitch.checked ? "inline" : "none";
+            }
+        });
+    </script>

@@ -1,0 +1,291 @@
+body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+}
+
+/* Navbar */
+.navbar {
+    height: 5rem;
+    background-color: white;
+}
+
+.fa-compass {
+    color: #fd4854;
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 !important;
+}
+
+/* Footer */
+
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+}
+
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info-socials i {
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+
+.f-info {
+    text-align: center;
+    display: flex;
+    height: 8rem;
+    background-color: #ebebeb;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+
+
+/* Cards */
+
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body {
+    padding: 0 !important;
+}
+
+.card-text p {
+    font-weight: 400 !important;
+}
+
+.listing-link {
+    text-decoration: none;
+}
+
+/* Card Effect */
+
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
+
+
+.add-btn {
+    background-color: #fd4854 !important;
+    border: none !important;
+}
+
+/* Edit Page */
+.edit-btn {
+    background-color: #fd4854 !important;
+    border: none !important;
+}
+
+/* Show Page */
+
+.show-img {
+    height: 30vh;
+}
+
+
+.btns {
+    display: flex;
+}
+
+.show-card {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+/* Map */
+#map {
+    height: 400px;
+    width: 80vh;
+}
+
+/* Responsive Grid for Listings */
+.listing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Make images scale smoothly */
+.card-img-top {
+    height: auto;
+    max-height: 250px;
+    object-fit: cover;
+}
+
+/* Ensure text and elements scale */
+h3,
+h4,
+p,
+a,
+button {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+}
+
+/* Responsive Navbar Fix */
+.navbar {
+    flex-wrap: wrap;
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+}
+
+/* Responsive footer */
+.f-info {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+@media (max-width: 576px) {
+    .f-info {
+        flex-direction: column;
+        text-align: center;
+        height: auto;
+    }
+}
+
+/* Map responsive fix */
+#map {
+    width: 100%;
+    height: 300px;
+}
+
+@media (min-width: 992px) {
+    #map {
+        height: 400px;
+    }
+}
+
+
+/* Responsive Design */
+
+/* ======= Small Devices (Phones) ======= */
+@media (max-width: 576px) {
+    .navbar {
+        height: auto;
+        padding: 0.5rem 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .fa-compass {
+        font-size: 1.5rem;
+    }
+
+    .listing-card {
+        margin-bottom: 1.5rem;
+    }
+
+    .card-img-top {
+        height: 200px !important;
+    }
+
+    .show-img {
+        height: auto;
+        width: 100%;
+        border-radius: 0.5rem;
+    }
+
+    .btns {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    #map {
+        width: 100%;
+        height: 250px;
+    }
+
+    .f-info {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem 0;
+    }
+
+    .f-info-links,
+    .f-info-socials,
+    .f-info-brand {
+        flex-direction: column;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* ======= Medium Devices (Tablets) ======= */
+@media (min-width: 577px) and (max-width: 992px) {
+    .navbar {
+        height: 4rem;
+        padding: 0.5rem 1.5rem;
+    }
+
+    .card-img-top {
+        height: 250px !important;
+    }
+
+    #map {
+        width: 100%;
+        height: 350px;
+    }
+
+    .btns {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .f-info {
+        height: auto;
+        padding: 1.5rem;
+    }
+}
+
+/* ======= Large Devices (Desktops) ======= */
+@media (min-width: 993px) {
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .listing-card {
+        margin: 1rem;
+    }
+
+    #map {
+        width: 80%;
+        height: 400px;
+    }
+}
