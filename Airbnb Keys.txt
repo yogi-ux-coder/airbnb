@@ -1,6 +1,0 @@
-Airbnb Keys
-
-username: yogiraj_makar
-password : SwLlHDGoQz7oguA1
-
-mongodb+srv://yogiraj_makar:SwLlHDGoQz7oguA1@airbnb.ewgqev2.mongodb.net/?appName=airbnb

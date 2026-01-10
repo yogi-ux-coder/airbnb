@@ -48,7 +48,7 @@ store.on("error", (err) => {
 app.use(
   session({
     store,
-    secret: process.env.SESSION_SECRET || "devsecretkey",
+    secret: process.env.SESSION_SECRET || process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
