@@ -27,9 +27,9 @@ mongoose
   .then(() => console.log("Connected to DB"))
   .catch((err) => console.log(err));
 
+app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.engine("ejs", ejsMate);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -48,7 +48,7 @@ store.on("error", (err) => {
 app.use(
   session({
     store,
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || "devsecretkey",
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -68,9 +68,9 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  res.locals.currUser = req.user;
+  res.locals.success = req.flash("success") || [];
+  res.locals.error = req.flash("error") || [];
+  res.locals.currUser = req.user || null;
   next();
 });
 
@@ -85,7 +85,6 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   const { statusCode = 500, message = "Something went wrong" } = err;
   res.status(statusCode).render("includes/error", { message });
-
 });
 
 app.listen(8080, () => {
